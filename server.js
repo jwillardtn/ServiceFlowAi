@@ -6,6 +6,8 @@ require('dotenv').config();
 let Anthropic;
 try { Anthropic = require('@anthropic-ai/sdk'); } catch(e) {}
 
+const HTML = require('./html.js');
+
 const app = express();
 app.use(express.json());
 app.use(session({
@@ -13,10 +15,6 @@ app.use(session({
   resave: false, saveUninitialized: false,
   cookie: { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 }
 }));
-
-// HTML served as base64 decoded buffer — no escaping issues
-const HTML_B64 =  + html_b64 + ;
-const HTML = Buffer.from(HTML_B64, 'base64').toString('utf-8');
 
 // ── In-memory store ──
 const users = new Map();
